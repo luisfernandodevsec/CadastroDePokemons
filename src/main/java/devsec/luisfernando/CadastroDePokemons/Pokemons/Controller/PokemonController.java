@@ -1,4 +1,4 @@
-package devsec.luisfernando.CadastroDePokemons.Controller;
+package devsec.luisfernando.CadastroDePokemons.Pokemons.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping
-public class Controller {
+public class PokemonController {
 
     @GetMapping("/boas-vindas")
     public String boasVindas() {
