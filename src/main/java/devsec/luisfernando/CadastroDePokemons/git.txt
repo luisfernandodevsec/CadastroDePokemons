@@ -1,0 +1,32 @@
+CONFIGURAR REPOSITORIO
+
+echo "# CadastroDePokemons" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/luisfernandodevsec/CadastroDePokemons.git
+git push -u origin main
+
+COMANDOS
+
+git status
+git add .
+git commit --amend
+git commit
+git reset .
+git push --force
+git log --oneline
+
+PADRAO DE COMMITS
+
+feat
+fix
+refactor
+perf
+style
+test
+docs
+build
+ops
+chore

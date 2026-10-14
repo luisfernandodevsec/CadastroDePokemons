@@ -1,0 +1,2 @@
+SELECT <column> FROM <table>;
+SHOW TABLES;
