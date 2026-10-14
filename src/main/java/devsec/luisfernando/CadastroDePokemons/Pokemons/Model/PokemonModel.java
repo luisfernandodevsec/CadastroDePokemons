@@ -1,10 +1,8 @@
 package devsec.luisfernando.CadastroDePokemons.Pokemons.Model;
 
-import devsec.luisfernando.CadastroDePokemons.Batalhas.Model.BatalhasModel;
+import devsec.luisfernando.CadastroDePokemons.Batalhas.Model.BatalhaModel;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 @Entity
 @Table(name = "tb_cadastro")
@@ -20,19 +18,14 @@ public class PokemonModel {
     @Column(unique = true)
     private String nome;
 
-    private String tipo;
-
     private String especie;
 
-    private int nivel;
-
-    private int vida;
-
-    private int dano;
+    @Column(name = "img_url", unique = true)
+    private String imgUrl;
 
     @ManyToOne
     @JoinColumn(name = "id_batalha")
-    private BatalhasModel batalhas;
+    private BatalhaModel batalhas;
 
 }
 
