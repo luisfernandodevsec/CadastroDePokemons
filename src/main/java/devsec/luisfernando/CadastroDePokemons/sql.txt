@@ -1,2 +1,5 @@
 SELECT <column> FROM <table>;
+INSERT INTO <table> (<attribute 1>, <attribute 2>, ..., <attribute n> VALUES (value 1, 'value 2', ..., value n);
+SELECT COUNT(<column>) AS <name> FROM <table> WHERE <filter>;
+ALTER TABLE <table> ADD COLUMN <name> <type>;
 SHOW TABLES;
