@@ -1,5 +1,6 @@
 package devsec.luisfernando.CadastroDePokemons.Pokemons.Controller;
 
+import devsec.luisfernando.CadastroDePokemons.Pokemons.DTO.PokemonDTO;
 import devsec.luisfernando.CadastroDePokemons.Pokemons.Model.PokemonModel;
 import devsec.luisfernando.CadastroDePokemons.Pokemons.Service.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,22 +17,22 @@ public class PokemonController {
     private PokemonService pokemonService;
 
     @GetMapping("/listar")
-    public List<PokemonModel> listarPokemons() {
+    public List<PokemonDTO> listarPokemons() {
         return pokemonService.listarPokemons();
     }
 
     @GetMapping("/listar/{id}")
-    public Optional<PokemonModel> listarPokemonsPorId(@PathVariable Long id) {
+    public Optional<PokemonDTO> listarPokemonsPorId(@PathVariable Long id) {
         return pokemonService.buscarPokemonPorId(id);
     }
 
     @PostMapping("/criar")
-    public PokemonModel criarPokemon(@RequestBody PokemonModel pokemon) {
+    public PokemonDTO criarPokemon(@RequestBody PokemonDTO pokemon) {
         return pokemonService.criarPokemon(pokemon);
     }
 
     @PutMapping("/editar/{id}")
-    public PokemonModel editarPokemon(@PathVariable Long id, @RequestBody PokemonModel pokemon) {
+    public PokemonDTO editarPokemon(@PathVariable Long id, @RequestBody PokemonDTO pokemon) {
         return pokemonService.editarPokemon(id, pokemon);
     }
 

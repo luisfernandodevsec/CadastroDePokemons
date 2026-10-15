@@ -21,6 +21,7 @@ git pull
 git checkout main
 git checkout -b <nome>
 git branch
+git push origin <branch>
 
 PADRAO DE COMMITS
 
