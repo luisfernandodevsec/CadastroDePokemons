@@ -1,17 +1,34 @@
 package devsec.luisfernando.CadastroDePokemons.Pokemons.Controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping
 public class PokemonController {
 
-    @GetMapping("/boas-vindas")
-    public String boasVindas() {
-        return "Bem vindo!";
+    @GetMapping("/pokemon/listar")
+    public String listarPokemons() {
+        return "Lista de pokemons";
     }
 
+    @GetMapping("/pokemon/listar/{id}")
+    public String listarPokemonsPorId(@PathVariable Long id) {
+        return "Listar pokemons por ID";
+    }
+
+    @PostMapping("/pokemon/criar")
+    public String criarPokemon() {
+        return "Criando pokemon";
+    }
+
+    @PutMapping("/pokemon/editar/{id}")
+    public String editarPokemon(@PathVariable Long id) {
+        return "Editar pokemon";
+    }
+
+    @DeleteMapping("/pokemon/deletar/{id}")
+    public String deletarPokemon(@PathVariable Long id) {
+        return "Deletar pokemon";
+    }
 
 }
