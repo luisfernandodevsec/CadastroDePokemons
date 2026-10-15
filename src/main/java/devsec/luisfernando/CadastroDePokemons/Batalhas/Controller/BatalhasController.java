@@ -1,32 +1,41 @@
 package devsec.luisfernando.CadastroDePokemons.Batalhas.Controller;
 
+import devsec.luisfernando.CadastroDePokemons.Batalhas.Model.BatalhaModel;
+import devsec.luisfernando.CadastroDePokemons.Batalhas.Service.BatalhaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping
+import java.util.List;
+import java.util.Optional;
+
+@RequestMapping("/batalha")
 @RestController
 public class BatalhasController {
 
-    @GetMapping("/batalha/listar")
-    public String listarBatalhas() {
-        return "Listando batalhas";
+    @Autowired
+    private BatalhaService batalhaService;
+
+    @GetMapping("/listar")
+    public List<BatalhaModel> listarBatalhas() {
+        return batalhaService.listarBatalhas();
     }
 
-    @GetMapping("/batalha/listar/{id}")
-    public String listarBatalhas(@PathVariable Long id) {
-        return "Listando batalhas";
+    @GetMapping("/listar/{id}")
+    public Optional<BatalhaModel> listarBatalhas(@PathVariable Long id) {
+        return batalhaService.listarBatalhasPorId(id);
     }
 
-    @PostMapping("/batalha/criar")
-    public String adicionarBatalha() {
-        return "Adicionando batalha";
+    @PostMapping("/criar")
+    public BatalhaModel adicionarBatalha(@RequestBody BatalhaModel batalha) {
+        return batalhaService.criarBatalha(batalha);
     }
 
-    @PutMapping("/batalha/editar/{id}")
-    public String editarBatalha(@PathVariable Long id) {
-        return "Editando batalha";
+    @PutMapping("/editar/{id}")
+    public void editarBatalha(@PathVariable Long id) {
+        batalhaService.deletarBatalha(id);
     }
 
-    @DeleteMapping("/batalha/deletar/{id}")
+    @DeleteMapping("/deletar/{id}")
     public String deletarBatalha(@PathVariable Long id) {
         return "Deletando batalha";
     }

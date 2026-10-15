@@ -1,34 +1,43 @@
 package devsec.luisfernando.CadastroDePokemons.Pokemons.Controller;
 
+import devsec.luisfernando.CadastroDePokemons.Pokemons.Model.PokemonModel;
+import devsec.luisfernando.CadastroDePokemons.Pokemons.Service.PokemonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
-@RequestMapping
+@RequestMapping("/pokemon")
 public class PokemonController {
 
-    @GetMapping("/pokemon/listar")
-    public String listarPokemons() {
-        return "Lista de pokemons";
+    @Autowired
+    private PokemonService pokemonService;
+
+    @GetMapping("/listar")
+    public List<PokemonModel> listarPokemons() {
+        return pokemonService.listarPokemons();
     }
 
-    @GetMapping("/pokemon/listar/{id}")
-    public String listarPokemonsPorId(@PathVariable Long id) {
-        return "Listar pokemons por ID";
+    @GetMapping("/listar/{id}")
+    public Optional<PokemonModel> listarPokemonsPorId(@PathVariable Long id) {
+        return pokemonService.buscarPokemonPorId(id);
     }
 
-    @PostMapping("/pokemon/criar")
-    public String criarPokemon() {
-        return "Criando pokemon";
+    @PostMapping("/criar")
+    public PokemonModel criarPokemon(@RequestBody PokemonModel pokemon) {
+        return pokemonService.criarPokemon(pokemon);
     }
 
-    @PutMapping("/pokemon/editar/{id}")
-    public String editarPokemon(@PathVariable Long id) {
-        return "Editar pokemon";
+    @PutMapping("/editar/{id}")
+    public PokemonModel editarPokemon(@PathVariable Long id, @RequestBody PokemonModel pokemon) {
+        return pokemonService.editarPokemon(id, pokemon);
     }
 
-    @DeleteMapping("/pokemon/deletar/{id}")
-    public String deletarPokemon(@PathVariable Long id) {
-        return "Deletar pokemon";
+    @DeleteMapping("/deletar/{id}")
+    public void deletarPokemon(@PathVariable Long id) {
+        pokemonService.deletarPokemon(id);
     }
 
 }

@@ -17,6 +17,10 @@ git commit
 git reset .
 git push --force
 git log --oneline
+git pull
+git checkout main
+git checkout -b <nome>
+git branch
 
 PADRAO DE COMMITS
 

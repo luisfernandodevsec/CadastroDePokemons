@@ -1,5 +1,6 @@
 package devsec.luisfernando.CadastroDePokemons.Batalhas.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import devsec.luisfernando.CadastroDePokemons.Pokemons.Model.PokemonModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,7 @@ public class BatalhaModel {
     private String status;
 
     @OneToMany(mappedBy = "batalhas")
+    @JsonIgnore
     private List<PokemonModel> pokemons;
 
 }
