@@ -23,6 +23,8 @@ public class PokemonModel {
     @Column(name = "img_url", unique = true)
     private String imgUrl;
 
+    private String level;
+
     @ManyToOne
     @JoinColumn(name = "id_batalha")
     private BatalhaModel batalhas;
