@@ -27,7 +27,7 @@ public class PokemonService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<PokemonDTO> buscarPokemonPorId(Long id) {
+    public Optional<PokemonDTO> listarPokemonPorId(Long id) {
         Optional<PokemonModel> pokemon = pokemonRepository.findById(id);
         return pokemon.map(pokemonMapper::map);
     }

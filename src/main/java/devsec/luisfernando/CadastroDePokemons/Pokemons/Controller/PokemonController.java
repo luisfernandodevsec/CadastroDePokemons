@@ -4,6 +4,8 @@ import devsec.luisfernando.CadastroDePokemons.Pokemons.DTO.PokemonDTO;
 import devsec.luisfernando.CadastroDePokemons.Pokemons.Model.PokemonModel;
 import devsec.luisfernando.CadastroDePokemons.Pokemons.Service.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,28 +19,48 @@ public class PokemonController {
     private PokemonService pokemonService;
 
     @GetMapping("/listar")
-    public List<PokemonDTO> listarPokemons() {
-        return pokemonService.listarPokemons();
+    public ResponseEntity<List<PokemonDTO>> listarPokemons() {
+        return ResponseEntity.status(HttpStatus.OK).body(pokemonService.listarPokemons());
     }
 
     @GetMapping("/listar/{id}")
-    public Optional<PokemonDTO> listarPokemonsPorId(@PathVariable Long id) {
-        return pokemonService.buscarPokemonPorId(id);
+    public ResponseEntity<?> listarPokemonsPorId(@PathVariable Long id) {
+        if (pokemonService.listarPokemonPorId(id).isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(pokemonService.listarPokemonPorId(id));
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pokemon não encontrado!");
     }
 
     @PostMapping("/criar")
-    public PokemonDTO criarPokemon(@RequestBody PokemonDTO pokemon) {
-        return pokemonService.criarPokemon(pokemon);
+    public ResponseEntity<String> criarPokemon(@RequestBody PokemonDTO pokemon) {
+        PokemonDTO dto = pokemonService.criarPokemon(pokemon);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("Pokemon criado com sucesso! " + dto.getNome() + " com id " + dto.getId());
     }
 
     @PutMapping("/editar/{id}")
-    public PokemonDTO editarPokemon(@PathVariable Long id, @RequestBody PokemonDTO pokemon) {
-        return pokemonService.editarPokemon(id, pokemon);
+    public ResponseEntity<?> editarPokemon(@PathVariable Long id, @RequestBody PokemonDTO pokemon) {
+        if (pokemonService.listarPokemonPorId(id).isPresent()) {
+            pokemonService.editarPokemon(id, pokemon);
+
+            return ResponseEntity.status(HttpStatus.OK).body(pokemonService.listarPokemonPorId(id));
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pokemon não encontrado!");
     }
 
     @DeleteMapping("/deletar/{id}")
-    public void deletarPokemon(@PathVariable Long id) {
-        pokemonService.deletarPokemon(id);
+    public ResponseEntity<String> deletarPokemon(@PathVariable Long id) {
+        String nome;
+
+        if (pokemonService.listarPokemonPorId(id).isPresent()) {
+            nome = pokemonService.listarPokemonPorId(id).get().getNome();
+            pokemonService.deletarPokemon(id);
+            return ResponseEntity.ok().body("Pokemon deletado com sucesso! " + nome);
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pokemon não encontrado!");
     }
 
 }
